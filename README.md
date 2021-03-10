@@ -1,4 +1,4 @@
-# Backend API for Web App Development
+## Backend API for Web App Development
 Using pure PHP and JavaScript for the frontend web application using composer with Symfony HTTP Foundation.
 
 ### API Architecture
