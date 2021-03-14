@@ -8,7 +8,7 @@ class RoyalShorelineHotelModel {
         $this->dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    // Register
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function register($registerID, $Username, $Password, $Firstname, $Surname, $Phone, $Email) {
         $sql = "INSERT INTO register (RegisterID, Firstname, Suranme, PhoneNumber, EmailAddress)
         VALUES (:rid, :uname, :upass, :rfirstname, :rsurname, :rphone, :remail)";
@@ -32,7 +32,7 @@ class RoyalShorelineHotelModel {
         }
     }
 
-    // check Login
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function checkLogin($Username, $Password) {
         $sql = "SELECT * FROM login WHERE Username=:uname";
 
@@ -61,7 +61,7 @@ class RoyalShorelineHotelModel {
             return false;
         }
     }
-
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function userExists($Username) {
         $sql = "SELECT * FROM login WHERE Username = :uname";
         $stmt = $this->dbconn->prepare($sql);
@@ -73,7 +73,7 @@ class RoyalShorelineHotelModel {
             return false;
         }
     }
-
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function addRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
         $sql = "INSERT INTO rooms (RoomImage, RoomType, RoomPrice, RoomDescription)
         VALUES (:rmimg, :rmtype, :rmprice, :rmdescript)";
@@ -93,5 +93,69 @@ class RoyalShorelineHotelModel {
             return false; // die
         }
     }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    function updateRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
+        $sql = "UPDATE rooms SET RoomImage=:rmimg, RoomType=:rmtype, RoomPrice=:rmprice, RoomDescription=:rmdescript WHERE RoomID=:roommid";
+
+        // bind Param
+        $stmt = $this->dbconn->prepare($sql);
+        $stmt->bindParam(':roomid', $RoomID, PDO::PARAM_INT);
+        $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
+        $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
+        $stmt->bindParam(':rmprice', $RoomPrice, PDO::PARAM_STR);
+        $stmt->bindParam(':rmdescript', $RoomDescription, PDO::PARAM_STR);
+
+        // execute statement
+        $result = $stmt->execute();
+        if($result === true) {
+            return true;
+        } else {
+            return false; // die
+        }
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    function deleteRoom($RoomID) {
+        $sql = "DELETE FROM rooms WHERE RoomID=:roomid";
+
+        // bind Param
+        $stmt = $this->dbconn->prepare($sql);
+        $stmt->bindParam(":roomid", $RoomID, PDO::PARAM_INT);
+
+        // execute statement
+        $result = $stmt->execute();
+        if($result === true) {
+            return true;
+        } else {
+            return false; // die
+        }
+    }
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function makeBooking($registerID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    $sql = "INSERT INTO bookings (RegisterID, RoomID, RoomImage, RoomType, BookingDate, NumberOfAdult, NumberOfChildren, CheckInDate, CheckOutDate)
+    VALUES (:rid, :roomid, :rmimg, :rmtype, :bookingdate, :numberofadult, :numberofchildren, checkindate, checkoutdate)";
+
+    // bind Param
+    $stmt = $this->dbconn->prepare($sql);
+    $stmt->bindParam(":rid", $registerID, PDO::PARAM_INT);
+    $stmt->bindParam(":roomid", $RoomID, PDO::PARAM_INT);
+    $stmt->bindParam(":rmimg", $RoomImage, PDO::PARAM_STR);
+    $stmt->bindParam(":rmtype", $RoomType, PDO::PARAM_STR);
+    $stmt->bindParam(":bookingdate", $BookingDate, PDO::PARAM_STR);
+    $stmt->bindParam(":numberofadult", $NumberOfAdult, PDO::PARAM_STR);
+    $stmt->bindParam(":numberofchildren", $NumberOfChildren, PDO::PARAM_STR);
+    $stmt->bindParam(":checkindate", $CheckInDate, PDO::PARAM_STR);
+    $stmt->bindParam(":checkoutdate", $CheckOutDate, PDO::PARAM_STR);
+
+    // execute statement
+    $result = $stmt->execute();
+    if($result === true) {
+        return true;
+    } else {
+        return false; // die
+    }
+}
+// Update booking
+// Delete booking
+
 }
 ?>
