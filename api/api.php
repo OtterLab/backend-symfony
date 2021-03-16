@@ -37,19 +37,19 @@ if(empty($request->query->all())) {
     // Register
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'register') {
-            if($request->request->has('username') and
-            $request->request->has('password') and
-            $request->request->has('firstname') and
-            $request->request->has('surname') and
-            $request->request->has('phone') and
-            $request->request->has('email')) {
+            if($request->request->has('uname') and
+            $request->request->has('upass') and
+            $request->request->has('rfirstname') and
+            $request->request->has('rsurname') and
+            $request->request->has('rphone') and
+            $request->request->has('remail')) {
                 $res = $session->get('sessionOBJ')->register(
-                    $request->request->getAlnum('uname'),
-                    $request->request->get('upass'),
-                    $request->request->get('rfirstname'),
-                    $request->request->get('rsurname'),
-                    $request->request->get('rphone'),
-                    $request->request->get('remail')
+                    $request->request->getAlnum('username'),
+                    $request->request->get('password'),
+                    $request->request->get('firstname'),
+                    $request->request->get('surname'),
+                    $request->request->get('phone'),
+                    $request->request->get('email')
                 );
                 if($res === true) {
                     $response->setStatusCode(201);
@@ -63,10 +63,10 @@ if(empty($request->query->all())) {
             }
             // Login
         } elseif($request->query->getAlnum('action') == 'login') {
-            if($request->request->has('Username') and 
-            $request->request->has('Password')) {
-                $res = $session->get('sessionOBJ')->login($request->request->getAlnum('Username'),
-                $request->request->get('Password'));
+            if($request->request->has('uname') and 
+            $request->request->has('upass')) {
+                $res = $session->get('sessionOBJ')->login($request->request->getAlnum('username'),
+                $request->request->get('password'));
                 if($res === false) {
                     $response->setStatusCode(401);
                 } elseif(count($res) == 1) {
@@ -86,8 +86,8 @@ if(empty($request->query->all())) {
     // check if user account exists
     if($request->getMethod() == 'GET') {
         if($request->query->getAlnum('action') == 'accountexists') {
-            if($request->query->has('Username')) {
-                $res = $RoyalShorelineHotelDB->userExists($request->query->getAlnum('Username'));
+            if($request->query->has('uname')) {
+                $res = $RoyalShorelineHotelDB->userExists($request->query->getAlnum('username'));
                 if($res) {
                     $response->setStatusCode(400);
                 } else {
@@ -114,9 +114,9 @@ if(empty($request->query->all())) {
     // delete Account
     if($request->getMethod() == 'DELETE') {
         if($request->query->getAlnum('action') == 'deleteAccount') {
-            if($request->request->has('registerid')) {
+            if($request->request->has('rid')) {
                 $res = $session->get('sessionOBJ')->deleteAccount(
-                    $request->request->getAlnum('rid')
+                    $request->request->getAlnum('registerid')
                 );
                 if($res === true) {
                     $response->setStatusCode(201);

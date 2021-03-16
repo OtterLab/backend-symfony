@@ -37,12 +37,12 @@ class RoyalShorelineSession {
             $this->registerID = $res['rid'];
             $this->user_privilege = 1;
             $this->user_token = md5(json_encode($res));
-            return Array('Username'=>$res['uname'],
-            'Password'=>$res['upass'],
-            'Firstname'=>$res['rfirstname'],
-            'Surname'=>$res['rsurname'],
-            'Phone'=>$res['rphone'],
-            'Email'=>$res['remail'],
+            return Array('username'=>$res['uname'],
+            'password'=>$res['upass'],
+            'firstname'=>$res['rfirstname'],
+            'surname'=>$res['rsurname'],
+            'phone'=>$res['rphone'],
+            'email'=>$res['remail'],
             'Hash'=>$this->user_token);
         } elseif(count($res) == 1) {
             $this->registerID = $res['rid'];
@@ -52,10 +52,10 @@ class RoyalShorelineSession {
     }
 
     // Register
-    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email) {
+    public function register($Firstname, $Surname, $Phone, $Email) {
         global $RoyalShorelineHotelDB;
         if($Email == $this->user_token) {
-            if($RoyalShorelineHotelDB->register($this->registerID, $Username, $Password, $Firstname, $Surname, $Phone, $Email)) {
+            if($RoyalShorelineHotelDB->register($this->$Firstname, $Surname, $Phone, $Email)) {
                 return true;
             } else {
                 return 0;

@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+#regForm, #loginForm {
+    background-color: whitesmoke;
+    padding-bottom: 1em;
+    padding-top: .2em;
+    margin-bottom: 1.5em;
+}
+
+.form-group {
+    padding: .3em;
+    text-align: center;
+}
+
+h3 {
+    text-align: center;
+}
+
+/* form fields */
+input[type=text], input[type=password] {
+    padding: 10px 15px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+input[type=submit] {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(0, 149, 225);
+    width: 200px;
+    color: white;
+}
+
+input[type=submit]:hover {
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}

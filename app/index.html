@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="bookingapp.css">
+        <title>Hotel Booking App</title>
+    </head>
+    <body>
+        <!---------------- Register Form --------------->
+        <form id="regForm" action="../api/api.php?action=register" method="POST">
+            <h3>Register</h3>
+            <div class="form-group">
+                <input type="text" id="username" name="uname" value="HelloWorld123" placeholder="Username"> 
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="upass" value="hello12345" placeholder="Password"> 
+            </div>
+            <div class="form-group">
+                <input type="text" id="firstname" name="rfirstname" value="Hello" placeholder="Firstname"> 
+            </div>
+            <div class="form-group">
+                <input type="text" id="surname" name="rsurname" value="Ying" placeholder="Surname"> 
+            </div>
+            <div class="form-group">
+                <input type="text" id="phone" name="rphone" value="12345678" placeholder="Phone"> 
+            </div>
+            <div class="form-group">
+                <input type="text" id="email" name="remail" value="sunworld38@outlook.com" placeholder="Email"> 
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register">
+            </div>
+        </form>
+        <!---------------- Login Form --------------->
+        <form id="loginForm" action="../api/api.php?action=login" method="POST">
+            <h3>Login</h3>
+            <div class="form-group">
+                <input type="text" id="username" name="uname" value="HelloWorld123" placeholder="Username"> 
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="upass" value="hello12345" placeholder="Password"> 
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login">
+            </div>
+        </form>
+        <!---------------- Add Room Form --------------->
+        <!---------------- Update Room Form --------------->
+        <!---------------- Delete Room Form --------------->
+        <!---------------- Make Booking Form --------------->
+        <!---------------- Update Booking Form --------------->
+        <!---------------- Delete Booking Form --------------->
+    </body>
+</html>

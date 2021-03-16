@@ -9,15 +9,13 @@ class RoyalShorelineHotelModel {
     }
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    function register($registerID, $Username, $Password, $Firstname, $Surname, $Phone, $Email) {
-        $sql = "INSERT INTO register (RegisterID, Firstname, Suranme, PhoneNumber, EmailAddress)
-        VALUES (:rid, :uname, :upass, :rfirstname, :rsurname, :rphone, :remail)";
+    function register($Firstname, $Surname, $Phone, $Email) {
+        
+        $sql = "INSERT INTO register (Firstname, Surname, PhoneNumber, EmailAddress)
+        VALUES (:rfirstname, :rsurname, :rphone, :remail)";
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
-        $stmt->bindParam(':rid', $registerID, PDO::PARAM_INT);
-        $stmt->bindParam(':uname', $Username, PDO::PARAM_STR);
-        $stmt->bindParam(':upass', $Password, PDO::PARAM_STR);
         $stmt->bindParam(':rfirstname', $Firstname, PDO::PARAM_STR);
         $stmt->bindParam(':rsurname', $Surname, PDO::PARAM_STR);
         $stmt->bindParam(':rphone', $Phone, PDO::PARAM_STR);
