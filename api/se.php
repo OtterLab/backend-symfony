@@ -4,14 +4,13 @@ class RoyalShorelineSession {
     private $last_visit = 0;
     private $last_visits = Array();
 
-    private $registerID = 0;
-    private $Username;
-    private $Password;
-    private $Firstname;
-    private $Surname;
-    private $Phone;
-    private $Email;
-    private $user_privilege = 0;
+    private $reg_id = 0;
+    private $reg_username;
+    private $reg_password;
+    private $reg_firstname;
+    private $reg_surname;
+    private $reg_phone;
+    private $reg_email;
     private $user_token;
 
     // Rate Limiting
@@ -27,42 +26,37 @@ class RoyalShorelineSession {
     }
 
     // Login
-    public function login($Username, $Password) {
+    public function Login($Username, $Password) {
         global $RoyalShorelineHotelDB;
 
         $res = $RoyalShorelineHotelDB->checkLogin($Username, $Password);
         if($res === false) {
             return false;
         } elseif(count($res) > 1) {
-            $this->registerID = $res['rid'];
-            $this->user_privilege = 1;
+            $this->reg_id = $res['reg_id'];
             $this->user_token = md5(json_encode($res));
-            return Array('username'=>$res['uname'],
-            'password'=>$res['upass'],
-            'firstname'=>$res['rfirstname'],
-            'surname'=>$res['rsurname'],
-            'phone'=>$res['rphone'],
-            'email'=>$res['remail'],
+            return Array('Username'=>$res['reg_username'],
+            'Password'=>$res['reg_password'],
+            'Firstname'=>$res['reg_firstname'],
+            'Surname'=>$res['reg_surname'],
+            'PhoneNumber'=>$res['reg_phone'],
+            'EmailAddress'=>$res['reg_email'],
             'Hash'=>$this->user_token);
         } elseif(count($res) == 1) {
-            $this->registerID = $res['rid'];
+            $this->reg_id = $res['RegisterID'];
             $this->user_token = md5(json_encode($res));
             return Array('Hash'=>$this->user_token);
-        }
+        } 
     }
 
     // Register
-    public function register($Firstname, $Surname, $Phone, $Email) {
+    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email) {
         global $RoyalShorelineHotelDB;
-        if($Email == $this->user_token) {
-            if($RoyalShorelineHotelDB->register($this->$Firstname, $Surname, $Phone, $Email)) {
+            if($RoyalShorelineHotelDB->register($Username, $Password, $Firstname, $Surname, $Phone, $Email)) {
                 return true;
             } else {
                 return 0;
             }
-        } else {
-            return false;
-        }
     }
 
     // is Logged In
@@ -74,10 +68,52 @@ class RoyalShorelineSession {
         }
     }
 
-    // Logout
+    // Register Logout
     public function logout() {
         $this->registerID = 0;
         $this->user_privilege = 0;
     }
+
+    // Add Room
+    public function addRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
+        global $RoyalShorelineHotelDB;
+            if($RoyalShorelineHotelDB->addRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription)) {
+                return true;
+            } else {
+                return 0;
+            }
+    }
+
+    // Update Room
+    public function updateRoom($RoomID, $RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
+        global $RoyalShorelineHotelDB;
+            if($RoyalShorelineHotelDB->updateRoom($RoomID, $RoomImage, $RoomType, $RoomPrice, $RoomDescription)) {
+                return true;
+            } else {
+                return 0;
+            }
+    }
+
+    // Make Booking
+    public function makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+        global $RoyalShorelineHotelDB;
+            if($RoyalShorelineHotelDB->makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
+                return true;
+            } else {
+                return 0;
+            }
+    }
+
+    // Update Booking
+    public function updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+        global $RoyalShorelineHotelDB;
+            if($RoyalShorelineHotelDB->updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
+                return true;
+            } else {
+                return 0;
+            }
+    }
+
+
 }
 ?>

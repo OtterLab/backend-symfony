@@ -4,7 +4,7 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
-#regForm, #loginForm {
+#regForm, #loginForm, #addRoomForm, #makeBookingForm {
     background-color: whitesmoke;
     padding-bottom: 1em;
     padding-top: .2em;
@@ -20,11 +20,31 @@ h3 {
     text-align: center;
 }
 
+p {
+    text-align: center;
+    font-size: 11pt;
+}
+
 /* form fields */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=number] {
     padding: 10px 15px;
     border: 1px solid lightgray;
     border-radius: 3px;
+}
+
+input[type=date] {
+    padding: 10px 15px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 165px;
+}
+
+input[type=file] {
+    padding: 10px 15px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    width: 165px;
+    background-color: white;
 }
 
 input[type=submit] {

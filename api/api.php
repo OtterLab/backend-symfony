@@ -44,17 +44,18 @@ if(empty($request->query->all())) {
             $request->request->has('rphone') and
             $request->request->has('remail')) {
                 $res = $session->get('sessionOBJ')->register(
-                    $request->request->getAlnum('username'),
-                    $request->request->get('password'),
-                    $request->request->get('firstname'),
-                    $request->request->get('surname'),
-                    $request->request->get('phone'),
-                    $request->request->get('email')
+                    $request->request->getAlnum('uname'),
+                    $request->request->get('upass'),
+                    $request->request->get('rfirstname'),
+                    $request->request->get('rsurname'),
+                    $request->request->get('rphone'),
+                    $request->request->get('remail')
                 );
                 if($res === true) {
                     $response->setStatusCode(201);
+                    $response->setContent(json_encode($res));
                 } elseif($res === false) {
-                    $response->setStatusCode(403);
+                    $response->setStatusCode(404);
                 } elseif($res === 0) {
                     $response->setStatusCode(500);
                 }
@@ -65,8 +66,8 @@ if(empty($request->query->all())) {
         } elseif($request->query->getAlnum('action') == 'login') {
             if($request->request->has('uname') and 
             $request->request->has('upass')) {
-                $res = $session->get('sessionOBJ')->login($request->request->getAlnum('username'),
-                $request->request->get('password'));
+                $res = $session->get('sessionOBJ')->Login($request->request->getAlnum('uname'),
+                $request->request->get('upass'));
                 if($res === false) {
                     $response->setStatusCode(401);
                 } elseif(count($res) == 1) {
@@ -134,15 +135,15 @@ if(empty($request->query->all())) {
     // Add Room
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'addRoom') {
-            if($request->request->has('roomimage') and
-            $request->request->has('roomtype') and
-            $request->request->has('roomprice') and
-            $request->request->has('roomdescription')) {
+            if($request->request->has('rmimg') and
+            $request->request->has('rmtype') and
+            $request->request->has('rmprice') and
+            $request->request->has('rmdescript')) {
                 $res = $session->get('sessionOBJ')->addRoom(
-                    $request->request->getAlnum('rimg'),
-                    $request->request->get('rtype'),
-                    $request->request->get('rprice'),
-                    $request->request->get('rdescript')
+                    $request->request->getAlnum('rmimg'),
+                    $request->request->get('rmtype'),
+                    $request->request->get('rmprice'),
+                    $request->request->get('rmdescript')
                 );
                 if($res === true) {
                     $response->setStatusCode(201);
@@ -175,16 +176,16 @@ if(empty($request->query->all())) {
             }
         }
         // Update Room
-        if($request->getMethod() == 'PUT') {
+        if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'updateRoom') {
                 if($request->request->has('roomid') and
-                $request->request->has('roomimage') and
-                $request->request->has('roomtype') and
-                $request->request->has('roomprice') and
-                $request->request->has('roomdescription')) {
+                $request->request->has('rmimg') and
+                $request->request->has('rmtype') and
+                $request->request->has('rmprice') and
+                $request->request->has('rmdescript')) {
                     $res = $session->get('sessionOBJ')->updateRoom(
-                        $request->request->has('rmid') and
-                        $request->request->getAlnum('rmimg'),
+                        $request->request->get('roomid'),
+                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('rmprice'),
                         $request->request->get('rmdescript')
@@ -204,24 +205,21 @@ if(empty($request->query->all())) {
           // make Booking
         if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'makeBooking') {
-                if($request->request->has('registerid') and
-                $request->request->has('roomid') and
-                $request->request->has('roomimage') and
-                $request->request->has('roomtype') and
-                $request->request->has('bookingdate') and
-                $request->request->has('numberofadult') and
-                $request->request->has('numberofchildren') and
-                $request->request->has('checkindate') and
-                $request->request->has('checkoutdate')) {
+                if($request->request->has('rmimg') and
+                $request->request->has('rmtype') and
+                $request->request->has('bookdate') and
+                $request->request->has('numofadult') and
+                $request->request->has('numofchild') and
+                $request->request->has('ckindate') and
+                $request->request->has('ckoutdate')) {
                     $res = $session->get('sessionOBJ')->makeBooking(
-                        $request->request->getAlnum('rid'),
-                        $request->request->get('roomid'),
-                        $request->request->get('rmimage'),
+                        $request->request->getAlnum('rmimg'),
                         $request->request->get('rmtype'),
-                        $request->request->get('bookingdate'),
-                        $request->request->get('numberofadult'),
-                        $request->request->get('numberofchildren'),
-                        $request->request->get('checkindate')
+                        $request->request->get('bookdate'),
+                        $request->request->get('numofadult'),
+                        $request->request->get('numofchild'),
+                        $request->request->get('ckindate'),
+                        $request->request->get('ckoutdate')
                     );
                     if($res === true) {
                         $response->setStatusCode(201);
@@ -236,26 +234,25 @@ if(empty($request->query->all())) {
             }
         }
         // update Booking
-        if($request->getMethod() == 'PUT') {
+        if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'updateBooking') {
-                if($request->request->has('registerid') and
-                $request->request->has('roomid') and
-                $request->request->has('roomimage') and
-                $request->request->has('roomtype') and
-                $request->request->has('bookingdate') and
-                $request->request->has('numberofadult') and
-                $request->request->has('numberofchildren') and
-                $request->request->has('checkindate') and
-                $request->request->has('checkoutdate')) {
+                if($request->request->has('bookid') and
+                $request->request->get('rmimg') and
+                $request->request->has('rmtype') and
+                $request->request->has('bookdate') and
+                $request->request->has('numofadult') and
+                $request->request->has('numofchild') and
+                $request->request->has('ckindate') and
+                $request->request->has('ckoutdate')) {
                     $res = $session->get('sessionOBJ')->updateBooking(
-                        $request->request->getAlnum('rid'),
-                        $request->request->get('roomid'),
-                        $request->request->get('rmimage'),
+                        $request->request->getAlnum('bookid'),
+                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
-                        $request->request->get('bookingdate'),
-                        $request->request->get('numberofadult'),
-                        $request->request->get('numberofchildren'),
-                        $request->request->get('checkindate')
+                        $request->request->get('bookdate'),
+                        $request->request->get('numofadult'),
+                        $request->request->get('numofchildren'),
+                        $request->request->get('ckindate'),
+                        $request->request->get('ckoutdate')
                     );
                     if($res === true) {
                         $response->setStatusCode(201);
