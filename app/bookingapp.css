@@ -52,7 +52,7 @@ input[type=submit] {
     border: none;
     border-radius: 3px;
     background-color: rgba(0, 149, 225);
-    width: 200px;
+    width: 220px;
     color: white;
 }
 
@@ -60,4 +60,42 @@ input[type=submit]:hover {
     background-color: black;
     color: white;
     cursor: pointer;
+}
+
+/* field with Icons */
+.fieldicon input[type=text], input[type=password], input[type=number], input[type=date], input[type=file] {
+    padding-left: 40px;
+}
+
+.fieldicon {
+    position: relative;
+}
+
+.fieldicon span {
+    position: absolute;
+    left: 80px;
+    top: 8px;
+    padding: 3px 8px;
+}
+
+/* Logout */
+.logout-btn {
+    width: 200px;
+    padding: 10px 15px;
+    background-color: rgba(0, 149, 225);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    margin-bottom: 1.5em;
+    cursor: pointer;
+}
+
+#btn {
+    text-align: center;
+}
+
+.logout-btn:hover {
+    background-color: black;
+    color: white;
 }

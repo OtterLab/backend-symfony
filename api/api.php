@@ -80,40 +80,17 @@ if(empty($request->query->all())) {
             } else {
                 $response->setStatusCode(400);
             }
-        } else {
-            $response->setStatusCode(400);
-        }
+        }  // check if user account exists
+        elseif($request->query->getAlnum('action') == 'logout') {
+              $session->get('sessionOBJ')->logout();
+              $response->setStatusCode(200);
+          } else {
+              $response->setStatusCode(400);
+          }
     }
-    // check if user account exists
-    if($request->getMethod() == 'GET') {
-        if($request->query->getAlnum('action') == 'accountexists') {
-            if($request->query->has('uname')) {
-                $res = $RoyalShorelineHotelDB->userExists($request->query->getAlnum('username'));
-                if($res) {
-                    $response->setStatusCode(400);
-                } else {
-                    $response->setStatusCode(204);
-                }
-            }
-            // is Logged In
-        } elseif($request->query->getAlnum('action') == 'isloggedin') {
-            $res = $session->get('sessionOBJ')->isLoggedIn();
-            if($res == false) {
-                $response->setStatusCode(403);
-            } elseif(count($res) == 1) {
-                $response->setStatusCode(200);
-                $response->setContent(json_encode($res));
-            }
-            // Logout
-        } elseif($request->query->getAlnum('action') == 'logout') {
-            $session->get('sessionOBJ')->logout();
-            $response->setStatusCode(200);
-        } else {
-            $response->setStatusCode(400);
-        }
-    }
+   
     // delete Account
-    if($request->getMethod() == 'DELETE') {
+    if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'deleteAccount') {
             if($request->request->has('rid')) {
                 $res = $session->get('sessionOBJ')->deleteAccount(
@@ -157,14 +134,14 @@ if(empty($request->query->all())) {
             }
         }
         // Delete Room
-    } if($request->getMethod() == 'DELETE') {
+    } if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'deleteRoom') {
             if($request->request->has('roomid')) {
                 $res = $session->get('sessionOBJ')->deleteRoom(
                     $request->request->getAlnum('roomid')
                 );
                 if($res === true) {
-                    $response->setStatusCode(201);
+                    $response->setStatusCode(202);
                     } elseif($res === false) {
                         $response->setStatusCode(403);
                     } elseif($res === 0) {
@@ -191,7 +168,7 @@ if(empty($request->query->all())) {
                         $request->request->get('rmdescript')
                     );
                     if($res === true) {
-                        $response->setStatusCode(201);
+                        $response->setStatusCode(202);
                     } elseif($res === false) {
                         $response->setStatusCode(403);
                     } elseif($res === 0) {
@@ -255,7 +232,7 @@ if(empty($request->query->all())) {
                         $request->request->get('ckoutdate')
                     );
                     if($res === true) {
-                        $response->setStatusCode(201);
+                        $response->setStatusCode(202);
                     } elseif($res === false) {
                         $response->setStatusCode(403);
                     } elseif($res === 0) {
@@ -266,14 +243,14 @@ if(empty($request->query->all())) {
                 }
             }
         } // delete booking
-        if($request->getMethod() == 'DELETE') {
+        if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'deleteBooking') {
                 if($request->request->has('bookingid')) {
                     $res = $session->get('sessionOBJ')->deleteBooking(
                         $request->request->getAlnum('bookingid')
                     );
                     if($res === true) {
-                        $response->setStatusCode(201);
+                        $response->setStatusCode(202);
                         } elseif($res === false) {
                             $response->setStatusCode(403);
                         } elseif($res === 0) {

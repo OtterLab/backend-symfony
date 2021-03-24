@@ -69,18 +69,6 @@ class RoyalShorelineHotelModel {
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    function userExists($Username) {
-        $sql = "SELECT * FROM login WHERE Username = :uname";
-        $stmt = $this->dbconn->prepare($sql);
-        $stmt->bindParam(':uname', $Username, PDO::PARAM_STR);
-        $stmt->execute();
-        if($stmt->rowCount() > 0){
-            return true;
-        } else {
-            return false;
-        }
-    }
-    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function addRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
         $sql = "INSERT INTO rooms (RoomImage, RoomType, RoomPrice, RoomDescription)
         VALUES (:rmimg, :rmtype, :rmprice, :rmdescript)";
@@ -184,7 +172,21 @@ function updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberO
     }
 }
 
-// Delete booking
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function deleteBooking($BookingID) {
+    $sql = "DELETE FROM bookings WHERE BookingID=:bookingid";
 
+    // bind Param
+    $stmt = $this->dbconn->prepare($sql);
+    $stmt->bindParam(":bookingid", $BookingID, PDO::PARAM_INT);
+
+    // execute statement
+    $result = $stmt->execute();
+    if($result === true) {
+        return true;
+    } else {
+        return false; // die
+    }
+}
 }
 ?>

@@ -15,6 +15,7 @@ class RoyalShorelineSession {
 
     // Rate Limiting
     public function is_rate_limited() {
+        date_default_timezone_set("Australia/Brisbane");
         if($this->last_visit == 0) {
             $this->last_visit = time();
             return false;
@@ -59,19 +60,9 @@ class RoyalShorelineSession {
             }
     }
 
-    // is Logged In
-    public function isLoggedIn() {
-        if($this->registerID === 0) {
-            return false;
-        } else {
-            return Array('Hash'=>$this->user_token);
-        }
-    }
-
-    // Register Logout
+    // Logout
     public function logout() {
-        $this->registerID = 0;
-        $this->user_privilege = 0;
+        $session->invalidate();
     }
 
     // Add Room
@@ -94,6 +85,16 @@ class RoyalShorelineSession {
             }
     }
 
+    // Delete Room
+    public function deleteRoom($RoomID) {
+        global $RoyalShorelineHotelDB;
+        if($RoyalShorelineHotelDB->deleteRoom($RoomID)) {
+            return true;
+        } else {
+            return 0;
+        }
+    }
+
     // Make Booking
     public function makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
         global $RoyalShorelineHotelDB;
@@ -114,6 +115,15 @@ class RoyalShorelineSession {
             }
     }
 
+    // Delete Booking
+    public function deleteBooking($BookingID) {
+        global $RoyalShorelineHotelDB;
+        if($RoyalShorelineHotelDB->deleteBooking($BookingID)) {
+            return true;
+        } else {
+            return 0;
+        }
+    }
 
 }
 ?>
