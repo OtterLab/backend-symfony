@@ -96,9 +96,9 @@ class RoyalShorelineSession {
     }
 
     // Make Booking
-    public function makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    public function makeBooking($RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
+            if($RoyalShorelineHotelDB->makeBooking($RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
                 return true;
             } else {
                 return 0;
@@ -106,9 +106,9 @@ class RoyalShorelineSession {
     }
 
     // Update Booking
-    public function updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    public function updateBooking($BookingID, $RegisterID, $RoomID,  $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
+            if($RoyalShorelineHotelDB->updateBooking($BookingID, $RegisterID, $RoomID,  $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
                 return true;
             } else {
                 return 0;

@@ -69,6 +69,18 @@ class RoyalShorelineHotelModel {
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     function displayRoomLists() {
+        $sql = "SELECT * FROM rooms";
+
+        // execute statement
+        $result = $stmt->execute();
+        if($result === true) {
+            return true;
+        } else {
+            return false; // die
+        }
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function addRoom($RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
         $sql = "INSERT INTO rooms (RoomImage, RoomType, RoomPrice, RoomDescription)
         VALUES (:rmimg, :rmtype, :rmprice, :rmdescript)";
@@ -125,12 +137,26 @@ class RoyalShorelineHotelModel {
         }
     }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
-    $sql = "INSERT INTO bookings (RoomImage, RoomType, BookingDate, NumberOfAdult, NumberOfChildren, CheckInDate, CheckOutDate)
-    VALUES (:rmimg, :rmtype, :bookdate, :numofadult, :numofchild, :ckindate, :ckoutdate)";
+function viewBookings() {
+    $sql = "SELECT * FROM bookings";
+
+    // execute statement
+    $result = $stmt->execute();
+    if($result === true) {
+        return true;
+    } else {
+        return false; // die
+    }
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+function makeBooking($RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    $sql = "INSERT INTO bookings (RegisterID, RoomID, RoomImage, RoomType, BookingDate, NumberOfAdult, NumberOfChildren, CheckInDate, CheckOutDate)
+    VALUES (:rid, :rmid, :rmimg, :rmtype, :bookdate, :numofadult, :numofchild, :ckindate, :ckoutdate)";
 
     // bind Param
     $stmt = $this->dbconn->prepare($sql);
+    $stmt->bindParam(':rid', $RegisterID, PDO::PARAM_INT);
+    $stmt->bindParam(':rmid', $RoomID, PDO::PARAM_INT);
     $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
     $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
     $stmt->bindParam(':bookdate', $BookingDate, PDO::PARAM_STR);
@@ -149,12 +175,14 @@ function makeBooking($RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $Numbe
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function updateBooking($BookingID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
-    $sql = "UPDATE bookings SET RoomImage=:rmimg, RoomType=:rmtype, BookingDate=:bookdate, NumberOfAdult=:numofadult, NumberOfChildren=:numofchild, CheckInDate=:ckindate, CheckOutDate=:ckoutdate WHERE BookingID=:bookid";
+function updateBooking($BookingID, $RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    $sql = "UPDATE bookings SET RegisterID=:rid, RoomID=:rmid, RoomImage=:rmimg, RoomType=:rmtype, BookingDate=:bookdate, NumberOfAdult=:numofadult, NumberOfChildren=:numofchild, CheckInDate=:ckindate, CheckOutDate=:ckoutdate WHERE BookingID=:bookid";
 
     // bind Param
     $stmt = $this->dbconn->prepare($sql);
     $stmt->bindParam(':bookid', $BookingID, PDO::PARAM_INT);
+    $stmt->bindParam(':rid', $RegisterID, PDO::PARAM_INT);
+    $stmt->bindParam(':rmid', $RoomID, PDO::PARAM_INT);
     $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
     $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
     $stmt->bindParam(':bookdate', $BookingDate, PDO::PARAM_STR);

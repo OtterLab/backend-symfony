@@ -14,27 +14,27 @@
             <h3>Register</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="username" name="uname" value="HelloWorld123" placeholder="Username"> 
+                <input type="text" id="reg_username" name="uname" value="HelloWorld123" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="password" name="upass" value="hellow" placeholder="Password"> 
+                <input type="password" id="reg_password" name="upass" value="siaairsky932" placeholder="Password"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="firstname" name="rfirstname" value="Hello" placeholder="Firstname"> 
+                <input type="text" id="reg_firstname" name="rfirstname" value="Hello" placeholder="Firstname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="surname" name="rsurname" value="Ying" placeholder="Surname"> 
+                <input type="text" id="reg_surname" name="rsurname" value="Ying" placeholder="Surname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">phone</span>
-                <input type="text" id="phone" name="rphone" value="12345678" placeholder="Phone"> 
+                <input type="text" id="reg_phone" name="rphone" value="12345678" placeholder="Phone"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">email</span>
-                <input type="text" id="email" name="remail" value="sunworld38@outlook.com" placeholder="Email"> 
+                <input type="text" id="reg_email" name="remail" value="sunworld38@outlook.com" placeholder="Email"> 
             </div>
             <div class="form-group">
                 <input type="submit" value="Register">
@@ -45,11 +45,11 @@
             <h3>Login</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="username" name="uname" value="HelloWorld123" placeholder="Username"> 
+                <input type="text" id="log_username" name="uname" value="HelloWorld123" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="password" name="upass" value="hellow" placeholder="Password"> 
+                <input type="password" id="log_password" name="upass" value="siaairsky932" placeholder="Password"> 
             </div>
             <div class="form-group">
                 <input type="submit" value="Login">
@@ -66,58 +66,58 @@
             <h3>Add Room</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">photo</span>
-                <input type="file" id="roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
+                <input type="file" id="add_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">bed</span>
-                <input type="text" id="roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
+                <input type="text" id="add_roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">sell</span>
-                <input type="text" id="roomprice" name="rmprice" value="12.50" placeholder="Room Price">
+                <input type="text" id="add_roomprice" name="rmprice" value="12.50" placeholder="Room Price">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">description</span>
-                <input type="text" id="roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
+                <input type="text" id="add_roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
             </div>
             <div class="form-group">
                 <input type="submit" value="Add Room">
             </div>
         </form>
         <!---------------- Update Room Form --------------->
-        <form id="addRoomForm" action="../api/api.php?action=updateRoom" method="POST">
+        <form id="updateRoomForm" action="../api/api.php?action=updateRoom" method="POST">
             <h3>Update Room</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">tag</span>
-                <input type="number" id="roomid" name="roomid" placeholder="Room ID">
+                <input type="number" id="up_roomid" name="roomid" value="1" placeholder="Room ID">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">photo</span>
-                <input type="file" id="roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
+                <input type="file" id="up_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">bed</span>
-                <input type="text" id="roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
+                <input type="text" id="up_roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">sell</span>
-                <input type="text" id="roomprice" name="rmprice" value="12.50" placeholder="Room Price">
+                <input type="text" id="up_roomprice" name="rmprice" value="12.50" placeholder="Room Price">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">description</span>
-                <input type="text" id="roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
+                <input type="text" id="up_roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save Room">
             </div>
         </form>
         <!---------------- Delete Room Form --------------->
-        <form id="addRoomForm" action="../api/api.php?action=deleteRoom" method="POST">
+        <form id="deleteRoomForm" action="../api/api.php?action=deleteRoom" method="POST">
             <h3>Delete Room</h3>
             <p>Which would you like to delete a Room?</p>
             <div class="form-group fieldicon">
                 <span class="material-icons">delete</span>
-                <input type="number" name="roomid" value="Delete Room" placeholder="Delete Room ID">
+                <input type="number" id="delete_roomid" name="roomid" value="1" placeholder="Delete Room ID">
             </div>
             <div class="form-group">
                 <input type="submit" value="Delete Room">
@@ -127,51 +127,20 @@
         <form id="makeBookingForm" action="../api/api.php?action=makeBooking" method="POST">
             <h3>Make Booking</h3>
             <div class="form-group fieldicon">
-                <span class="material-icons">photo</span>
-                <input type="file" id="roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
+                <span class="material-icons">tag</span>
+                <input type="number" id="book_rid" name="rid" value="1" placeholder="Register ID">
             </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">bed</span>
-                <input type="text" id="roomtype" name="rmtype" value="King Bedroom Ocean Suite" placeholder="Room Type">
-            </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">date_range</span>
-                <input placeholder="Date" type="date" id="bookingdate" name="bookdate">
-            </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">person_add</span>
-                <input type="text" id="numberofadult" name="numofadult" value="2" placeholder="Number of Adults">
-            </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">person_add</span>
-                <input type="text" id="numberofchildren" name="numofchild" value="1" placeholder="Number of Children">
-            </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">date_range</span>
-                <input type="date" id="checkindate" name="ckindate">
-            </div>
-            <div class="form-group fieldicon">
-                <span class="material-icons">date_range</span>
-                <input type="date" id="checkoutdate" name="ckoutdate">
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Book Now">
-            </div>
-        </form>
-        <!---------------- Update Booking Form --------------->
-        <form id="makeBookingForm" action="../api/api.php?action=updateBooking" method="POST">
-            <h3>Update Booking</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">tag</span>
-                <input type="number" id="bookingid" name="bookid" placeholder="Booking ID">
+                <input type="number" id="book_rmid" name="rmid" value="1" placeholder="Room ID">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">photo</span>
-                <input type="file" id="roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
+                <input type="file" id="book_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">bed</span>
-                <input type="text" id="roomtype" name="rmtype" value="King Bedroom Ocean Suite" placeholder="Room Type">
+                <input type="text" id="book_roomtype" name="rmtype" value="King Bedroom Ocean Suite" placeholder="Room Type">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">date_range</span>
@@ -179,31 +148,78 @@
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person_add</span>
-                <input type="text" id="numberofadult" name="numofadult" value="2" placeholder="Number of Adults">
+                <input type="text" id="book_numberofadult" name="numofadult" value="2" placeholder="Number of Adults">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person_add</span>
-                <input type="text" id="numberofchildren" name="numofchild" value="1" placeholder="Number of Children">
+                <input type="text" id="book_numberofchildren" name="numofchild" value="1" placeholder="Number of Children">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">date_range</span>
-                <input type="date" id="checkindate" name="ckindate">
+                <input type="date" id="book_checkin_date" name="ckindate">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">date_range</span>
-                <input type="date" id="checkoutdate" name="ckoutdate">
+                <input type="date" id="book_checkout_date" name="ckoutdate">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Book Now">
+            </div>
+        </form>
+        <!---------------- Update Booking Form --------------->
+        <form id="updateBookingForm" action="../api/api.php?action=updateBooking" method="POST">
+            <h3>Update Booking</h3>
+            <div class="form-group fieldicon">
+                <span class="material-icons">tag</span>
+                <input type="number" id="upbook_bookingid" name="bookid" value="1" placeholder="Booking ID">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">tag</span>
+                <input type="number" id="upbook_rid" name="rid" value="1" placeholder="Register ID">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">tag</span>
+                <input type="number" id="upbook_rmid" name="rmid" value="1" placeholder="Room ID">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">photo</span>
+                <input type="file" id="upbook_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">bed</span>
+                <input type="text" id="upbook_roomtype" name="rmtype" value="King Bedroom Ocean Suite" placeholder="Room Type">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">date_range</span>
+                <input type="date" id="upbook_bookingdate" name="bookdate">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">person_add</span>
+                <input type="text" id="upbook_numberofadult" name="numofadult" value="2" placeholder="Number of Adults">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">person_add</span>
+                <input type="text" id="upbook_numberofchildren" name="numofchild" value="1" placeholder="Number of Children">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">date_range</span>
+                <input type="date" id="upbook_checkin_date" name="ckindate">
+            </div>
+            <div class="form-group fieldicon">
+                <span class="material-icons">date_range</span>
+                <input type="date" id="upbook_checkout_date" name="ckoutdate">
             </div>
             <div class="form-group">
                 <input type="submit" value="Update Booking">
             </div>
         </form>
         <!---------------- Delete Booking Form --------------->
-        <form id="addRoomForm" action="../api/api.php?action=deleteBooking" method="POST">
+        <form id="deleteBookingForm" action="../api/api.php?action=deleteBooking" method="POST">
             <h3>Delete Booking</h3>
             <p>Which would you like to delete Booking?</p>
             <div class="form-group fieldicon">
                 <span class="material-icons">delete</span>
-                <input type="number" name="bookingid" placeholder="Delete Booking ID">
+                <input type="number" id="delete_bookingid" name="bookingid" value="1" placeholder="Delete Booking ID">
             </div>
             <div class="form-group">
                 <input type="submit" value="Delete Booking">

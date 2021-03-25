@@ -53,7 +53,7 @@ if(empty($request->query->all())) {
                 );
                 if($res === true) {
                     $response->setStatusCode(201);
-                    $response->setContent(json_encode($res));
+                    
                 } elseif($res === false) {
                     $response->setStatusCode(404);
                 } elseif($res === 0) {
@@ -80,7 +80,7 @@ if(empty($request->query->all())) {
             } else {
                 $response->setStatusCode(400);
             }
-        }  // check if user account exists
+        }  // logout
         elseif($request->query->getAlnum('action') == 'logout') {
               $session->get('sessionOBJ')->logout();
               $response->setStatusCode(200);
@@ -108,7 +108,9 @@ if(empty($request->query->all())) {
                 }
             }
         }
-
+    
+    // Display Room Lists
+    
     // Add Room
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'addRoom') {
@@ -182,7 +184,9 @@ if(empty($request->query->all())) {
           // make Booking
         if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'makeBooking') {
-                if($request->request->has('rmimg') and
+                if($request->request->has('rid') and
+                $request->request->has('rmid') and
+                $request->request->has('rmimg') and
                 $request->request->has('rmtype') and
                 $request->request->has('bookdate') and
                 $request->request->has('numofadult') and
@@ -190,7 +194,9 @@ if(empty($request->query->all())) {
                 $request->request->has('ckindate') and
                 $request->request->has('ckoutdate')) {
                     $res = $session->get('sessionOBJ')->makeBooking(
-                        $request->request->getAlnum('rmimg'),
+                        $request->request->getAlnum('rid'),
+                        $request->request->get('rmid'),
+                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('bookdate'),
                         $request->request->get('numofadult'),
@@ -210,10 +216,14 @@ if(empty($request->query->all())) {
                 }
             }
         }
+        // view Bookings
+
         // update Booking
         if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'updateBooking') {
                 if($request->request->has('bookid') and
+                $request->request->get('rid') and
+                $request->request->get('rmid') and
                 $request->request->get('rmimg') and
                 $request->request->has('rmtype') and
                 $request->request->has('bookdate') and
@@ -223,6 +233,8 @@ if(empty($request->query->all())) {
                 $request->request->has('ckoutdate')) {
                     $res = $session->get('sessionOBJ')->updateBooking(
                         $request->request->getAlnum('bookid'),
+                        $request->request->get('rid'),
+                        $request->request->get('rmid'),
                         $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('bookdate'),
@@ -260,9 +272,9 @@ if(empty($request->query->all())) {
                         $response->setStatusCode(400);
                     }
                 }
-            } 
-    } 
-    else {
+            }
+        } 
+        else {
         $redirect = new RedirectResponse($_SERVER['REQUEST_URI']);
     }
     
