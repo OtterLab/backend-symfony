@@ -10,6 +10,11 @@ requests                                  sessions
 json output                               restrictions
                                           data validation                          
 ```
+### Disabled CORS
+```
+Windows CMD
+"[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
+```
 ### Project Setup
 ```
 •	Clone github repo
