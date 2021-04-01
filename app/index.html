@@ -14,27 +14,27 @@
             <h3>Register</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_username" name="uname" value="HelloWorld123" placeholder="Username"> 
+                <input type="text" id="reg_username" name="uname" value="QianMi21" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="reg_password" name="upass" value="siaairsky932" placeholder="Password"> 
+                <input type="password" id="reg_password" name="upass" value="fhsaskw22" placeholder="Password"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_firstname" name="rfirstname" value="Hello" placeholder="Firstname"> 
+                <input type="text" id="reg_firstname" name="rfirstname" value="Qian" placeholder="Firstname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_surname" name="rsurname" value="Ying" placeholder="Surname"> 
+                <input type="text" id="reg_surname" name="rsurname" value="Min" placeholder="Surname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">phone</span>
-                <input type="text" id="reg_phone" name="rphone" value="12345678" placeholder="Phone"> 
+                <input type="text" id="reg_phone" name="rphone" value="837266153" placeholder="Phone"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">email</span>
-                <input type="text" id="reg_email" name="remail" value="sunworld38@outlook.com" placeholder="Email"> 
+                <input type="text" id="reg_email" name="remail" value="QiMing9@gmail.com" placeholder="Email"> 
             </div>
             <div class="form-group">
                 <input type="submit" value="Register">
@@ -45,22 +45,31 @@
             <h3>Login</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="log_username" name="uname" value="HelloWorld123" placeholder="Username"> 
+                <input type="text" id="log_username" name="uname" value="QianMi21" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="log_password" name="upass" value="siaairsky932" placeholder="Password"> 
+                <input type="password" id="log_password" name="upass" value="fhsaskw22" placeholder="Password"> 
             </div>
             <div class="form-group">
                 <input type="submit" value="Login">
             </div>
         </form>
-
         <!---------------- Logout --------------->
         <div id="btn">
             <input type="button" class="logout-btn" id="logoutbutton" href="../api/api.php?action=logout" value="Logout">
         </div>
-        
+        <!---------------- Delete account Form --------------->
+        <form id="delAccountForm" action="../api/api.php?action=deleteAccount" method="POST">
+            <h3>Delete Account</h3>
+            <div class="form-group fieldicon">
+                <span class="material-icons">people</span>
+                <input type="number" id="del_account" name="delrid" placeholder="Register ID">
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Delete Account">
+            </div>
+        </form>
         <!---------------- Add Room Form --------------->
         <form id="addRoomForm" action="../api/api.php?action=addRoom" method="POST">
             <h3>Add Room</h3>

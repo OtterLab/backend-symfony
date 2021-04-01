@@ -60,6 +60,16 @@ class RoyalShorelineSession {
             }
     }
 
+     // Delete Account
+     public function deleteAccount($registerID) {
+        global $RoyalShorelineHotelDB;
+        if($RoyalShorelineHotelDB->deleteAccount($registerID)) {
+            return true;
+        } else {
+            return 0;
+        }
+    }
+
     // Logout
     public function logout() {
         $session->invalidate();
@@ -124,6 +134,5 @@ class RoyalShorelineSession {
             return 0;
         }
     }
-
 }
 ?>

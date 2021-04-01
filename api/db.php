@@ -68,6 +68,22 @@ class RoyalShorelineHotelModel {
             return false;
         }
     }
+     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     function deleteAccount($registerID) {
+        $sql = "DELETE FROM register WHERE RegisterID=:delrid";
+
+        // bind Param
+        $stmt = $this->dbconn->prepare($sql);
+        $stmt->bindParam(":delrid", $registerID, PDO::PARAM_INT);
+
+        // execute statement
+        $result = $stmt->execute();
+        if($result === true) {
+            return true;
+        } else {
+            return false; // die
+        }
+    }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
      function displayRoomLists() {
         $sql = "SELECT * FROM rooms";
@@ -102,7 +118,8 @@ class RoyalShorelineHotelModel {
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function updateRoom($RoomID, $RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
-        $sql = "UPDATE rooms SET RoomImage=:rmimg, RoomType=:rmtype, RoomPrice=:rmprice, RoomDescription=:rmdescript WHERE RoomID=:roomid";
+        $sql = "UPDATE rooms SET RoomImage=:rmimg, RoomType=:rmtype, RoomPrice=:rmprice, 
+        RoomDescription=:rmdescript WHERE RoomID=:roomid";
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
@@ -137,7 +154,7 @@ class RoyalShorelineHotelModel {
         }
     }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function viewBookings() {
+function showBookingLists() {
     $sql = "SELECT * FROM bookings";
 
     // execute statement

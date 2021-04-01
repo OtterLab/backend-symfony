@@ -4,7 +4,7 @@ html {
     font-family: 'Roboto', sans-serif;
 }
 
-#regForm, #loginForm, #addRoomForm, #updateRoomForm, #deleteRoomForm, #makeBookingForm, #updateBookingForm, #deleteBookingForm {
+#regForm, #loginForm, #addRoomForm, #updateRoomForm, #deleteRoomForm, #makeBookingForm, #updateBookingForm, #deleteBookingForm, .delAccountForm {
     background-color: whitesmoke;
     padding-bottom: 1em;
     padding-top: .2em;
