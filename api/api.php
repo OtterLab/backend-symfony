@@ -19,6 +19,7 @@ $session = new Session(new NativeSessionStorage(), new AttributeBag());
 $response->headers->set('Content-Type', 'application/json');
 $response->headers->set('Access-Control-Allow-Headers', 'origin, content-type, accept');
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+$response->headers->set('Access-Control-Allow-Origin', 'http://localhost:80/backend/api/api.php');
 $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
 // Start session
@@ -83,7 +84,7 @@ if(empty($request->query->all())) {
         }
     }
 
-    if($request->getMethod() == 'GET') { 
+    if($request->getMethod() == 'POST') { 
         if($request->query->getAlnum('action') == 'logout') {
             $session->get('sessionOBJ')->logout();
             $response->setStatusCode(200);
