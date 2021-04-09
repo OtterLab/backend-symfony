@@ -13,7 +13,7 @@ json output                               restrictions
 ### Disabled CORS
 ```
 Windows CMD
-"[PATH_TO_CHROME]\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
 ```
 ### Project Setup
 ```
