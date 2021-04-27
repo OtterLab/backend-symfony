@@ -14,7 +14,7 @@ json output                               restrictions
 ```
 Windows CMD
 "C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=~/chromeTemp
-"C:\Users\yimia>"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=c:\tmp
+"C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=c:\tmp
 
 ```
 ### Project Setup
