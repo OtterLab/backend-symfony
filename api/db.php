@@ -117,14 +117,12 @@ class RoyalShorelineHotelModel {
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    function updateRoom($RoomID, $RoomImage, $RoomType, $RoomPrice, $RoomDescription) {
-        $sql = "UPDATE rooms SET RoomImage=:rmimg, RoomType=:rmtype, RoomPrice=:rmprice, 
-        RoomDescription=:rmdescript WHERE RoomID=:roomid";
+    function updateRoom($RoomID, $RoomType, $RoomPrice, $RoomDescription) {
+        $sql = "UPDATE rooms SET RoomType=:rmtype, RoomPrice=:rmprice, RoomDescription=:rmdescript WHERE RoomID=:roomid";
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
         $stmt->bindParam(':roomid', $RoomID, PDO::PARAM_INT);
-        $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
         $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
         $stmt->bindParam(':rmprice', $RoomPrice, PDO::PARAM_STR);
         $stmt->bindParam(':rmdescript', $RoomDescription, PDO::PARAM_STR);
@@ -166,15 +164,14 @@ function showBookingLists() {
     }
 }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function makeBooking($RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
-    $sql = "INSERT INTO bookings (RegisterID, RoomID, RoomImage, RoomType, BookingDate, NumberOfAdult, NumberOfChildren, CheckInDate, CheckOutDate)
-    VALUES (:rid, :rmid, :rmimg, :rmtype, :bookdate, :numofadult, :numofchild, :ckindate, :ckoutdate)";
+function makeBooking($RegisterID, $RoomID, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    $sql = "INSERT INTO bookings (RegisterID, RoomID, RoomType, BookingDate, NumberOfAdult, NumberOfChildren, CheckInDate, CheckOutDate)
+    VALUES (:rid, :rmid, :rmtype, :bookdate, :numofadult, :numofchild, :ckindate, :ckoutdate)";
 
     // bind Param
     $stmt = $this->dbconn->prepare($sql);
     $stmt->bindParam(':rid', $RegisterID, PDO::PARAM_INT);
     $stmt->bindParam(':rmid', $RoomID, PDO::PARAM_INT);
-    $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
     $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
     $stmt->bindParam(':bookdate', $BookingDate, PDO::PARAM_STR);
     $stmt->bindParam(':numofadult', $NumberOfAdult, PDO::PARAM_STR);
@@ -192,15 +189,14 @@ function makeBooking($RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, 
 }
 
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-function updateBooking($BookingID, $RegisterID, $RoomID, $RoomImage, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
-    $sql = "UPDATE bookings SET RegisterID=:rid, RoomID=:rmid, RoomImage=:rmimg, RoomType=:rmtype, BookingDate=:bookdate, NumberOfAdult=:numofadult, NumberOfChildren=:numofchild, CheckInDate=:ckindate, CheckOutDate=:ckoutdate WHERE BookingID=:bookid";
+function updateBooking($BookingID, $RegisterID, $RoomID, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    $sql = "UPDATE bookings SET RegisterID=:rid, RoomID=:rmid, RoomType=:rmtype, BookingDate=:bookdate, NumberOfAdult=:numofadult, NumberOfChildren=:numofchild, CheckInDate=:ckindate, CheckOutDate=:ckoutdate WHERE BookingID=:bookid";
 
     // bind Param
     $stmt = $this->dbconn->prepare($sql);
     $stmt->bindParam(':bookid', $BookingID, PDO::PARAM_INT);
     $stmt->bindParam(':rid', $RegisterID, PDO::PARAM_INT);
     $stmt->bindParam(':rmid', $RoomID, PDO::PARAM_INT);
-    $stmt->bindParam(':rmimg', $RoomImage, PDO::PARAM_STR);
     $stmt->bindParam(':rmtype', $RoomType, PDO::PARAM_STR);
     $stmt->bindParam(':bookdate', $BookingDate, PDO::PARAM_STR);
     $stmt->bindParam(':numofadult', $NumberOfAdult, PDO::PARAM_STR);
@@ -232,6 +228,26 @@ function deleteBooking($BookingID) {
     } else {
         return false; // die
     }
-}
+  }
+  //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  function registerLog($registerID, $url, $IPaddress, $Browser) {
+      $sql = "INSERT INTO registerlog (RegisterID, URL, IPaddress, Browser)
+      VALUES (:rid, :url, :ip, :br)";
+
+      // bind Param
+      $stmt = $this->dbconn->prepare($sql);
+      $stmt->bindParam(":rid", $registerID, PDO::PARAM_INT);
+      $stmt->bindParam(":url", $url, PDO::PARAM_STR);
+      $stmt->bindParam(":ip", $IPaddress, PDO::PARAM_STR);
+      $stmt->bindParam(":br", $Browser, PDO::PARAM_STR);
+
+      // execute statement
+      $result = $stmt->execute();
+      if($result === true) {
+          return true;
+      } else {
+          return false; // die
+      }
+  }
 }
 ?>

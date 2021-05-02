@@ -19,7 +19,6 @@ $session = new Session(new NativeSessionStorage(), new AttributeBag());
 $response->headers->set('Content-Type', 'application/json');
 $response->headers->set('Access-Control-Allow-Headers', 'origin, content-type, accept');
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-$response->headers->set('Access-Control-Allow-Origin', 'http://localhost:80/backend/api/api.php');
 $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
 // Start session
@@ -125,13 +124,11 @@ if(empty($request->query->all())) {
     // Add Room
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'addRoom') {
-            if($request->request->has('rmimg') and
-            $request->request->has('rmtype') and
+            if($request->request->has('rmtype') and
             $request->request->has('rmprice') and
             $request->request->has('rmdescript')) {
                 $res = $session->get('sessionOBJ')->addRoom(
-                    $request->request->getAlnum('rmimg'),
-                    $request->request->get('rmtype'),
+                    $request->request->getAlnum('rmtype'),
                     $request->request->get('rmprice'),
                     $request->request->get('rmdescript')
                 );
@@ -169,13 +166,11 @@ if(empty($request->query->all())) {
         if($request->getMethod() == 'POST') {
             if($request->query->getAlnum('action') == 'updateRoom') {
                 if($request->request->has('roomid') and
-                $request->request->has('rmimg') and
                 $request->request->has('rmtype') and
                 $request->request->has('rmprice') and
                 $request->request->has('rmdescript')) {
                     $res = $session->get('sessionOBJ')->updateRoom(
                         $request->request->get('roomid'),
-                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('rmprice'),
                         $request->request->get('rmdescript')
@@ -197,7 +192,6 @@ if(empty($request->query->all())) {
             if($request->query->getAlnum('action') == 'makeBooking') {
                 if($request->request->has('rid') and
                 $request->request->has('rmid') and
-                $request->request->has('rmimg') and
                 $request->request->has('rmtype') and
                 $request->request->has('bookdate') and
                 $request->request->has('numofadult') and
@@ -207,7 +201,6 @@ if(empty($request->query->all())) {
                     $res = $session->get('sessionOBJ')->makeBooking(
                         $request->request->getAlnum('rid'),
                         $request->request->get('rmid'),
-                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('bookdate'),
                         $request->request->get('numofadult'),
@@ -242,7 +235,6 @@ if(empty($request->query->all())) {
                 if($request->request->has('bookid') and
                 $request->request->get('rid') and
                 $request->request->get('rmid') and
-                $request->request->get('rmimg') and
                 $request->request->has('rmtype') and
                 $request->request->has('bookdate') and
                 $request->request->has('numofadult') and
@@ -253,7 +245,6 @@ if(empty($request->query->all())) {
                         $request->request->getAlnum('bookid'),
                         $request->request->get('rid'),
                         $request->request->get('rmid'),
-                        $request->request->get('rmimg'),
                         $request->request->get('rmtype'),
                         $request->request->get('bookdate'),
                         $request->request->get('numofadult'),
