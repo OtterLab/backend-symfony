@@ -36,19 +36,19 @@ if(empty($request->query->all())) {
     }
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'register') {
-            if($request->request->has('uname') and
-                $request->request->has('upass') and
-                $request->request->has('rfirstname') and
-                $request->request->has('rsurname') and
-                $request->request->has('rphone') and
-                $request->request->has('remail')) {
+            if($request->request->has('username') and
+                $request->request->has('password') and
+                $request->request->has('firstname') and
+                $request->request->has('surname') and
+                $request->request->has('phone') and
+                $request->request->has('email')) {
                 $res = $session->get('sessionOBJ')->register(
-                    $request->request->getAlnum('uname'),
-                    $request->request->get('upass'),
-                    $request->request->get('rfirstname'),
-                    $request->request->get('rsurname'),
-                    $request->request->get('rphone'),
-                    $request->request->get('remail')
+                    $request->request->getAlnum('username'),
+                    $request->request->get('password'),
+                    $request->request->get('firstname'),
+                    $request->request->get('surname'),
+                    $request->request->get('phone'),
+                    $request->request->get('email')
                 );
                 if($res === true) {
                     $response->setStatusCode(201);
@@ -62,10 +62,10 @@ if(empty($request->query->all())) {
                 $response->setStatusCode(400);
             }
         } elseif($request->query->getAlnum('action') == 'login') {
-            if($request->request->has('uname') and
-                $request->request->has('upass')) {
-                $res = $session->get('sessionOBJ')->Login($request->request->getAlnum('uname'),
-                    $request->request->get('upass'));
+            if($request->request->has('username') and
+                $request->request->has('password')) {
+                $res = $session->get('sessionOBJ')->Login($request->request->getAlnum('username'),
+                    $request->request->get('password'));
                 if ($res === false) {
                     $response->setStatusCode(401);
                 } elseif(count($res) == 1) {

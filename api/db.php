@@ -12,19 +12,19 @@ class RoyalShorelineHotelModel {
     function register($Username, $Password, $Firstname, $Surname, $Phone, $Email) {
         
         $sql = "INSERT INTO register (Username, Password, Firstname, Surname, PhoneNumber, EmailAddress)
-        VALUES (:uname, :upass, :rfirstname, :rsurname, :rphone, :remail)";
+        VALUES (:username, :password, :firstname, :surname, :phone, :email)";
 
         // Password hash
         $hPassword = password_hash($Password, PASSWORD_DEFAULT);
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
-        $stmt->bindParam(':uname', $Username, PDO::PARAM_STR);
-        $stmt->bindParam(':upass', $hPassword, PDO::PARAM_STR);
-        $stmt->bindParam(':rfirstname', $Firstname, PDO::PARAM_STR);
-        $stmt->bindParam(':rsurname', $Surname, PDO::PARAM_STR);
-        $stmt->bindParam(':rphone', $Phone, PDO::PARAM_STR);
-        $stmt->bindParam(':remail', $Email, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $Username, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $hPassword, PDO::PARAM_STR);
+        $stmt->bindParam(':firstname', $Firstname, PDO::PARAM_STR);
+        $stmt->bindParam(':surname', $Surname, PDO::PARAM_STR);
+        $stmt->bindParam(':phone', $Phone, PDO::PARAM_STR);
+        $stmt->bindParam(':email', $Email, PDO::PARAM_STR);
 
         // execute statement
         $result = $stmt->execute();
@@ -38,11 +38,11 @@ class RoyalShorelineHotelModel {
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function checkLogin($Username, $Password) {
         
-        $sql = "SELECT * FROM register WHERE Username=:uname ";
+        $sql = "SELECT * FROM register WHERE Username=:username ";
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
-        $stmt->bindParam(':uname', $Username, PDO::PARAM_STR);
+        $stmt->bindParam(':username', $Username, PDO::PARAM_STR);
 
         $stmt->execute();
         
