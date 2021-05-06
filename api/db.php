@@ -88,6 +88,8 @@ class RoyalShorelineHotelModel {
      function displayRoomLists() {
         $sql = "SELECT * FROM rooms";
 
+        $rows = $stmt->fetchAll();
+
         // execute statement
         $result = $stmt->execute();
         if($result === true) {
@@ -155,6 +157,8 @@ class RoyalShorelineHotelModel {
 function showBookingLists() {
     $sql = "SELECT * FROM bookings";
 
+    $rows = $stmt->fetchAll();
+    
     // execute statement
     $result = $stmt->execute();
     if($result === true) {
