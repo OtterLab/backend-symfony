@@ -22,6 +22,9 @@ $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE,
 $response->headers->set('Access-Control-Allow-Origin', 'http://localhost/');
 $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
+// If SESSION does not Exists start a new SESSION
+// If SESSION does exists - Destroy it OR SKIP IT
+
 // start session
 $session->start();
 
