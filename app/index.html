@@ -14,23 +14,23 @@
             <h3>Register</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_username" name="uname" value="QianMi21" placeholder="Username"> 
+                <input type="text" id="reg_username" name="username" value="QianMi21" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="reg_password" name="upass" value="fhsaskw22" placeholder="Password"> 
+                <input type="password" id="reg_password" name="password" value="fhsaskw22" placeholder="Password"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_firstname" name="rfirstname" value="Qian" placeholder="Firstname"> 
+                <input type="text" id="reg_firstname" name="firstname" value="Qian" placeholder="Firstname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="reg_surname" name="rsurname" value="Min" placeholder="Surname"> 
+                <input type="text" id="reg_surname" name="surname" value="Min" placeholder="Surname"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">phone</span>
-                <input type="text" id="reg_phone" name="rphone" value="837266153" placeholder="Phone"> 
+                <input type="text" id="reg_phone" name="phone" value="837266153" placeholder="Phone"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">email</span>
@@ -45,11 +45,11 @@
             <h3>Login</h3>
             <div class="form-group fieldicon">
                 <span class="material-icons">person</span>
-                <input type="text" id="log_username" name="uname" value="QianMi21" placeholder="Username"> 
+                <input type="text" id="log_username" name="username" value="QianMi21" placeholder="Username"> 
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">lock</span>
-                <input type="password" id="log_password" name="upass" value="fhsaskw22" placeholder="Password"> 
+                <input type="password" id="log_password" name="password" value="fhsaskw22" placeholder="Password"> 
             </div>
             <div class="form-group">
                 <input type="submit" value="Login">
@@ -74,20 +74,16 @@
         <form id="addRoomForm" action="../api/api.php?action=addRoom" method="POST">
             <h3>Add Room</h3>
             <div class="form-group fieldicon">
-                <span class="material-icons">photo</span>
-                <input type="file" id="add_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
-            </div>
-            <div class="form-group fieldicon">
                 <span class="material-icons">bed</span>
-                <input type="text" id="add_roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
+                <input type="text" id="add_roomtype" name="roomtype" value="Deluxe King Suite" placeholder="Room Type">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">sell</span>
-                <input type="text" id="add_roomprice" name="rmprice" value="12.50" placeholder="Room Price">
+                <input type="text" id="add_roomprice" name="roomprice" value="12.50" placeholder="Room Price">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">description</span>
-                <input type="text" id="add_roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
+                <input type="text" id="add_roomdescription" name="roomdesc" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
             </div>
             <div class="form-group">
                 <input type="submit" value="Add Room">
@@ -101,20 +97,16 @@
                 <input type="number" id="up_roomid" name="roomid" value="1" placeholder="Room ID">
             </div>
             <div class="form-group fieldicon">
-                <span class="material-icons">photo</span>
-                <input type="file" id="up_roomimage" name="rmimg" accept="image/gif, image/png" placeholder="Room Image">
-            </div>
-            <div class="form-group fieldicon">
                 <span class="material-icons">bed</span>
-                <input type="text" id="up_roomtype" name="rmtype" value="Deluxe King Suite" placeholder="Room Type">
+                <input type="text" id="up_roomtype" name="roomtype" value="Deluxe King Suite" placeholder="Room Type">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">sell</span>
-                <input type="text" id="up_roomprice" name="rmprice" value="12.50" placeholder="Room Price">
+                <input type="text" id="up_roomprice" name="roomprice" value="12.50" placeholder="Room Price">
             </div>
             <div class="form-group fieldicon">
                 <span class="material-icons">description</span>
-                <input type="text" id="up_roomdescription" name="rmdescript" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
+                <input type="text" id="up_roomdescription" name="roomdesc" value="This Deluxe King Suite features a modern look." placeholder="Room Description">
             </div>
             <div class="form-group">
                 <input type="submit" value="Save Room">

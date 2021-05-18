@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Mar 08, 2021 at 11:11 PM
+-- Generation Time: May 10, 2021 at 10:54 PM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `royalshorelinehotel`
+-- Database: `test_table`
 --
 
 -- --------------------------------------------------------
@@ -32,7 +32,6 @@ CREATE TABLE IF NOT EXISTS `bookings` (
   `BookingID` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `RegisterID` int UNSIGNED NOT NULL,
   `RoomID` int UNSIGNED NOT NULL,
-  `RoomImage` varchar(255) NOT NULL,
   `RoomType` text NOT NULL,
   `BookingDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `NumberOfAdult` smallint NOT NULL,
@@ -47,28 +46,14 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `login`
---
-
-DROP TABLE IF EXISTS `login`;
-CREATE TABLE IF NOT EXISTS `login` (
-  `LoginID` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  `RegisterID` int UNSIGNED NOT NULL,
-  PRIMARY KEY (`LoginID`),
-  KEY `registerID_FK` (`RegisterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `register`
 --
 
 DROP TABLE IF EXISTS `register`;
 CREATE TABLE IF NOT EXISTS `register` (
   `RegisterID` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Username` varchar(50) NOT NULL,
+  `Password` varchar(200) NOT NULL,
   `Firstname` varchar(50) NOT NULL,
   `Surname` varchar(50) NOT NULL,
   `PhoneNumber` varchar(50) NOT NULL,
@@ -100,7 +85,6 @@ CREATE TABLE IF NOT EXISTS `registerlog` (
 DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE IF NOT EXISTS `rooms` (
   `RoomID` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `RoomImage` varchar(255) NOT NULL,
   `RoomType` varchar(50) NOT NULL,
   `RoomPrice` decimal(10,2) NOT NULL,
   `RoomDescription` mediumtext NOT NULL,
@@ -117,12 +101,6 @@ CREATE TABLE IF NOT EXISTS `rooms` (
 ALTER TABLE `bookings`
   ADD CONSTRAINT `bookingID_regID_FK` FOREIGN KEY (`RegisterID`) REFERENCES `register` (`RegisterID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `roomID_FK` FOREIGN KEY (`RoomID`) REFERENCES `rooms` (`RoomID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `login`
---
-ALTER TABLE `login`
-  ADD CONSTRAINT `registerID_FK` FOREIGN KEY (`RegisterID`) REFERENCES `register` (`RegisterID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

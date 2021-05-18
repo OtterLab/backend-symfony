@@ -19,9 +19,10 @@ $session = new Session(new NativeSessionStorage(), new AttributeBag());
 $response->headers->set('Content-Type', 'application/json');
 $response->headers->set('Access-Control-Allow-Headers', 'origin, content-type, accept');
 $response->headers->set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+$response->headers->set('Access-Control-Allow-Origin', 'http://localhost/');
 $response->headers->set('Access-Control-Allow-Credentials', 'true');
 
-// Start session
+// start session
 $session->start();
 
 if(!$session->has('sessionOBJ')) {
@@ -34,6 +35,7 @@ if(empty($request->query->all())) {
     if($session->get('sessionOBJ')->is_rate_limited()) {
         $response->setStatusCode(429);
     }
+
     if($request->getMethod() == 'POST') {
         if($request->query->getAlnum('action') == 'register') {
             if($request->request->has('username') and
@@ -42,252 +44,242 @@ if(empty($request->query->all())) {
                 $request->request->has('surname') and
                 $request->request->has('phone') and
                 $request->request->has('email')) {
-                $res = $session->get('sessionOBJ')->register(
-                    $request->request->getAlnum('username'),
-                    $request->request->get('password'),
-                    $request->request->get('firstname'),
-                    $request->request->get('surname'),
-                    $request->request->get('phone'),
-                    $request->request->get('email')
-                );
-                if($res === true) {
-                    $response->setStatusCode(201);
-                    $response->setContent(json_encode($res));
-                } elseif($res === false) {
-                    $response->setStatusCode(403);
-                } elseif($res === 0) {
-                    $response->setStatusCode(500);
-                }
-            } else {
-                $response->setStatusCode(400);
-            }
-        } elseif($request->query->getAlnum('action') == 'login') {
-            if($request->request->has('username') and
-                $request->request->has('password')) {
-                $res = $session->get('sessionOBJ')->Login($request->request->getAlnum('username'),
-                    $request->request->get('password'));
-                if ($res === false) {
-                    $response->setStatusCode(401);
-                } elseif(count($res) == 1) {
-                    $response->setStatusCode(203);
-                    $response->setContent(json_encode($res));
-                } elseif(count($res) > 1) {
-                    $response->setStatusCode(200);
-                    $response->setContent(json_encode($res));
-                }
-            } else {
-                $response->setStatusCode(400);
-            }
-        } else {
-            $response->setStatusCode(400);
-        }
-    }
-
-    if($request->getMethod() == 'POST') { 
-        if($request->query->getAlnum('action') == 'logout') {
-            $session->get('sessionOBJ')->logout();
-            $response->setStatusCode(200);
-        }  else {
-             $response->setStatusCode(400);
-        }
-    }
-   
-    // delete Account
-    if($request->getMethod() == 'POST') {
-        if($request->query->getAlnum('action') == 'deleteAccount') {
-            if($request->request->has('delrid')) {
-                $res = $session->get('sessionOBJ')->deleteAccount(
-                    $request->request->getAlnum('delrid')
-                );
-                if($res === true) {
-                    $response->setStatusCode(202);
-                    } elseif($res === false) {
-                        $response->setStatusCode(403);
-                    } elseif($res === 0) {
-                        $response->setStatusCode(500);
-                    }
-                } else {
-                    $response->setStatusCode(400);
-                }
-            }
-        }
-    
-    // Display Room Lists
-    if($request->getMethod() == 'GET') {
-        if($request->query->getAlnum('action') == 'showRooms') {
-            $res = $session->get('sessionOBJ')->displayRoomLists();
-            $response->setContent(json_encode($res));
-            $response->setStatusCode(200);
-        }
-    }
-    
-    // Add Room
-    if($request->getMethod() == 'POST') {
-        if($request->query->getAlnum('action') == 'addRoom') {
-            if($request->request->has('rmtype') and
-            $request->request->has('rmprice') and
-            $request->request->has('rmdescript')) {
-                $res = $session->get('sessionOBJ')->addRoom(
-                    $request->request->getAlnum('rmtype'),
-                    $request->request->get('rmprice'),
-                    $request->request->get('rmdescript')
-                );
-                if($res === true) {
-                    $response->setStatusCode(201);
-                } elseif($res === false) {
-                    $response->setStatusCode(403);
-                } elseif($res === 0) {
-                    $response->setStatusCode(500);
-                }
-            } else {
-                $response->setStatusCode(400);
-            }
-        }
-        // Delete Room
-    } if($request->getMethod() == 'POST') {
-        if($request->query->getAlnum('action') == 'deleteRoom') {
-            if($request->request->has('roomid')) {
-                $res = $session->get('sessionOBJ')->deleteRoom(
-                    $request->request->getAlnum('roomid')
-                );
-                if($res === true) {
-                    $response->setStatusCode(202);
-                    } elseif($res === false) {
-                        $response->setStatusCode(403);
-                    } elseif($res === 0) {
-                        $response->setStatusCode(500);
-                    }
-                } else {
-                    $response->setStatusCode(400);
-                }
-            }
-        }
-        // Update Room
-        if($request->getMethod() == 'POST') {
-            if($request->query->getAlnum('action') == 'updateRoom') {
-                if($request->request->has('roomid') and
-                $request->request->has('rmtype') and
-                $request->request->has('rmprice') and
-                $request->request->has('rmdescript')) {
-                    $res = $session->get('sessionOBJ')->updateRoom(
-                        $request->request->get('roomid'),
-                        $request->request->get('rmtype'),
-                        $request->request->get('rmprice'),
-                        $request->request->get('rmdescript')
-                    );
-                    if($res === true) {
-                        $response->setStatusCode(202);
-                    } elseif($res === false) {
-                        $response->setStatusCode(403);
-                    } elseif($res === 0) {
-                        $response->setStatusCode(500);
-                    }
-                } else {
-                    $response->setStatusCode(400);
-                }
-            }
-        }
-          // make Booking
-        if($request->getMethod() == 'POST') {
-            if($request->query->getAlnum('action') == 'makeBooking') {
-                if($request->request->has('rid') and
-                $request->request->has('rmid') and
-                $request->request->has('rmtype') and
-                $request->request->has('bookdate') and
-                $request->request->has('numofadult') and
-                $request->request->has('numofchild') and
-                $request->request->has('ckindate') and
-                $request->request->has('ckoutdate')) {
-                    $res = $session->get('sessionOBJ')->makeBooking(
-                        $request->request->getAlnum('rid'),
-                        $request->request->get('rmid'),
-                        $request->request->get('rmtype'),
-                        $request->request->get('bookdate'),
-                        $request->request->get('numofadult'),
-                        $request->request->get('numofchild'),
-                        $request->request->get('ckindate'),
-                        $request->request->get('ckoutdate')
+                    $res = $session->get('sessionOBJ')->register(
+                        $request->request->getAlnum('username'),
+                        $request->request->get('password'),
+                        $request->request->get('firstname'),
+                        $request->request->get('surname'),
+                        $request->request->get('phone'),
+                        $request->request->get('email')
                     );
                     if($res === true) {
                         $response->setStatusCode(201);
-                    } elseif($res === false) {
+                        $response->setContent(json_encode($res));
+                    } else {
                         $response->setStatusCode(403);
-                    } elseif($res === 0) {
-                        $response->setStatusCode(500);
                     }
                 } else {
                     $response->setStatusCode(400);
                 }
-            }
-        }
-        // Display Booking List
-        if($request->getMethod() == 'GET') {
-            if($request->query->getAlnum('action') == 'showBookings') {
-                $res = $session->get('sessionOBJ')->showBookingList();
-                $response->setContent(json_encode($res));
+            } 
+            
+            elseif($request->query->getAlnum('action') == 'login') {
+                if($request->request->has('username') and
+                    $request->request->has('password')) {
+                        $res = $session->get('sessionOBJ')->Login($request->request->getAlpha('username'),
+                        $request->request->get('password'));
+                        if($res === false) {
+                            $response->setContent(json_encode($request->request));
+                            $response->setStatusCode(401);
+                        } elseif(count($res) > 1) {
+                            $response->setStatusCode(200);
+                            $response->setContent(json_encode($res));
+                        }
+                    } else {
+                        $response->setStatusCode(400);
+                    }
+            } elseif($request->query->getAlnum('action') == 'logout') {
+                $session->get('sessionOBJ')->logout();
                 $response->setStatusCode(200);
             }
-        }
 
-        // update Booking
-        if($request->getMethod() == 'POST') {
-            if($request->query->getAlnum('action') == 'updateBooking') {
-                if($request->request->has('bookid') and
-                $request->request->get('rid') and
-                $request->request->get('rmid') and
-                $request->request->has('rmtype') and
-                $request->request->has('bookdate') and
-                $request->request->has('numofadult') and
-                $request->request->has('numofchild') and
-                $request->request->has('ckindate') and
-                $request->request->has('ckoutdate')) {
-                    $res = $session->get('sessionOBJ')->updateBooking(
-                        $request->request->getAlnum('bookid'),
-                        $request->request->get('rid'),
-                        $request->request->get('rmid'),
-                        $request->request->get('rmtype'),
-                        $request->request->get('bookdate'),
-                        $request->request->get('numofadult'),
-                        $request->request->get('numofchildren'),
-                        $request->request->get('ckindate'),
-                        $request->request->get('ckoutdate')
+            elseif($request->query->getAlnum('action') == 'addRoom') {
+                if($request->request->has('roomtype') and
+                    $request->request->has('roomprice') and
+                    $request->request->has('roomdesc')) {
+                        $res = $session->get('sessionOBJ')->addRoom(
+                            $request->request->getAlnum('roomtype'),
+                            $request->request->get('roomprice'),
+                            $request->request->get('roomdesc')
+                        );
+                        if($res === true) {
+                            $response->setStatusCode(201);
+                            $response->setContent(json_encode($res));
+                        } else {
+                            $response->setStatusCode(403);
+                        }
+                    } else {
+                        $response->setStatusCode(400);
+                    }
+                } 
+            
+            elseif($request->query->getAlnum('action') == 'updateRoom') {
+                if($request->request->has('roomid') and
+                $request->request->has('roomtype') and
+                    $request->request->has('roomprice') and
+                    $request->request->has('roomdesc')) {
+                        $res = $session->get('sessionOBJ')->updateRoom(
+                            $request->request->getAlnum('roomid'),
+                            $request->request->get('roomtype'),
+                            $request->request->get('roomprice'),
+                            $request->request->get('roomdesc')
+                        );
+                        if($res === true) {
+                            
+                            $response->setStatusCode(202);
+                            $response->setContent(json_encode($res));
+                        } else {
+                            $response->setStatusCode(403);
+                        }
+                    } else {
+                        $response->setStatusCode(400);
+                    }
+                } 
+             
+            elseif($request->query->getAlnum('action') == 'deleteRoom') {
+                if($request->request->has('roomid')) {
+                    $res = $session->get('sessionOBJ')->deleteRoom(
+                        $request->request->getAlnum('roomid')
                     );
                     if($res === true) {
                         $response->setStatusCode(202);
-                    } elseif($res === false) {
+                        $response->setContent(json_encode($res));
+                    } else {
                         $response->setStatusCode(403);
-                    } elseif($res === 0) {
-                        $response->setStatusCode(500);
                     }
                 } else {
                     $response->setStatusCode(400);
                 }
             }
-        } // delete booking
-        if($request->getMethod() == 'POST') {
-            if($request->query->getAlnum('action') == 'deleteBooking') {
+
+            elseif($request->query->getAlnum('action') == 'makeBooking') {
+                if($request->request->has('registerid') and
+                    $request->request->has('roomid') and
+                    $request->request->has('roomtype') and
+                    $request->request->has('bookingdate') and
+                    $request->request->has('numofadult') and
+                    $request->request->has('numofchild') and
+                    $request->request->has('checkindate') and
+                    $request->request->has('checkoutdate')) {
+                        $res = $session->get('sessionOBJ')->makeBooking(
+                            $request->request->getAlnum('registerid'),
+                            $request->request->get('roomid'),
+                            $request->request->get('roomtype'),
+                            $request->request->get('bookingdate'),
+                            $request->request->get('numofadult'),
+                            $request->request->get('numofchild'),
+                            $request->request->get('checkindate'),
+                            $request->request->get('checkoutdate')
+                        );
+                        if($res === true) {
+                            $response->setStatusCode(201);
+                            $response->setContent(json_encode($res));
+                        } else {
+                            $response->setStatusCode(403);
+                        }
+                    } else {
+                        $response->setStatusCode(400);
+                    }
+                }
+
+            elseif($request->query->getAlnum('action') == 'updateBooking') {
+                if($request->request->has('bookingid') and
+                    $request->request->has('registerid') and
+                    $request->request->has('roomid') and
+                    $request->request->has('roomtype') and
+                    $request->request->has('bookingdate') and
+                    $request->request->has('numofadult') and
+                    $request->request->has('numofchild') and
+                    $request->request->has('checkindate') and
+                    $request->request->has('checkoutdate')) {
+                        $res = $session->get('sessionOBJ')->updateBooking(
+                            $request->request->getAlnum('bookingid'),
+                            $request->request->get('registerid'),
+                            $request->request->get('roomid'),
+                            $request->request->get('roomtype'),
+                            $request->request->get('bookingdate'),
+                            $request->request->get('numofadult'),
+                            $request->request->get('numofchild'),
+                            $request->request->get('checkindate'),
+                            $request->request->get('checkoutdate')
+                        );
+                        if($res === true) {
+                            $response->setStatusCode(201);
+                            $response->setContent(json_encode($res));
+                        } else {
+                            $response->setStatusCode(403);
+                        }
+                    } else {
+                        $response->setStatusCode(400);
+                    }
+            }
+
+            elseif($request->query->getAlnum('action') == 'deleteBooking') {
                 if($request->request->has('bookingid')) {
                     $res = $session->get('sessionOBJ')->deleteBooking(
                         $request->request->getAlnum('bookingid')
                     );
                     if($res === true) {
                         $response->setStatusCode(202);
-                        } elseif($res === false) {
-                            $response->setStatusCode(403);
-                        } elseif($res === 0) {
-                            $response->setStatusCode(500);
-                        }
+                        $response->setContent(json_encode($res));
                     } else {
-                        $response->setStatusCode(400);
+                        $response->setStatusCode(403);
                     }
+                } else {
+                    $response->setStatusCode(400);
                 }
             }
-        } 
-        else {
+
+            if($request->getMethod() == 'GET') {
+                if($request->query->getAlnum('action') == 'showRooms') {
+                    if($request->request->has('roomid') and 
+                        $request->request->has('roomtype') and
+                        $request->request->has('roomprice') and
+                        $request->request->has('roomdesc')) {
+                            $res = $session->get('sessionOBJ')->showRooms(
+                                $request->request->getAlnum('roomid'),
+                                $request->request->get('roomtype'),
+                                $request->request->get('roomprice'),
+                                $request->request->get('roomdesc')
+                            );
+                            if($res === true) {
+                                $response->setStatusCode(200);
+                                $response->setContent(json_encode($res));
+                            } else {
+                                $response->setStatusCode(404);
+                            }
+                        } else {
+                            $response->setStatusCode(400);
+                        }
+                    } 
+
+                    elseif($request->query->getAlnum('action') == 'showBooking') {
+                        if($request->request->has('registerid') and
+                            $request->request->has('roomid') and
+                            $request->request->has('roomtype') and
+                            $request->request->has('bookingdate') and
+                            $request->request->has('numofadult') and
+                            $request->request->has('numofchild') and
+                            $request->request->has('checkindate') and
+                            $request->request->has('checkoutdate')) {
+                                $res = $session->get('sessionOBJ')->showBooking(
+                                    $request->request->getAlnum('registerid'),
+                                    $request->request->get('roomid'),
+                                    $request->request->get('roomtype'),
+                                    $request->request->get('bookingdate'),
+                                    $request->request->get('numofadult'),
+                                    $request->request->get('numofchild'),
+                                    $request->request->get('checkindate'),
+                                    $request->request->get('checkoutdate')
+                                );
+                                if($res === true) {
+                                    $response->setStatusCode(200);
+                                    $response->setContent(json_encode($res));
+                                } else {
+                                    $response->setStatusCode(404);
+                                }
+                            } else {
+                                $response->setStatusCode(400);
+                            }
+                        }
+            }
+        }
+    }
+    else {
         $redirect = new RedirectResponse($_SERVER['REQUEST_URI']);
     }
-    
-    // print response message
+
+    // send response code
     $response->send();
-    
+
 ?>
