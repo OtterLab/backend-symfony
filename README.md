@@ -7,14 +7,13 @@ api.php             db.php                se.php
 ================    ================      ================
 http responses      SQL database code     security
 requests                                  sessions
-json output                               restrictions
-                                          data validation                          
+json output                               
+                                                                 
 ```
 ### Disabled CORS
 ```
 Windows CMD
 "C:\Program Files\Google\Chrome\Application\chrome.exe" --disable-web-security --disable-gpu --user-data-dir=c:\tmp
-
 ```
 ### Project Setup
 ```
@@ -22,7 +21,7 @@ Windows CMD
 •	Place the project in working directory www or htdocs
 •	Open Localhost phpMyAdmin
 •	Upload SQL file
-•	Database Name ‘testtable’
+•	Database Name ‘royalshoreline’
 
 ```
 ### Database ERD
