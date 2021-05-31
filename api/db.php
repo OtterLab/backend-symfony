@@ -4,17 +4,19 @@ class RoyalShorelineHotelModel {
     private $dbconn;
 
     public function __construct() {
-        $this->dbconn = new PDO("mysql:host=localhost;dbname=royalshorelinehotel", "root", "");
+        $this->dbconn = new PDO("mysql:host=localhost;dbname=royalshoreline", "root", "");
         $this->dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    function register($Username, $Password, $Firstname, $Surname, $Phone, $Email) {
+    function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights) {
         
-        $sql = "INSERT INTO register (Username, Password, Firstname, Surname, PhoneNumber, EmailAddress)
-        VALUES (:username, :password, :firstname, :surname, :phone, :email)";
+        $sql = "INSERT INTO register (Username, Password, Firstname, Surname, PhoneNumber, EmailAddress, accessRights)
+        VALUES (:username, :password, :firstname, :surname, :phone, :email, :accessrights)";
 
-        // Password hash
+        // Creates a new Password HASH using one-way hashing algorithm. Password hash can change when it already exists in the database
+        // Password DEFAULT uses bcrypt algorithm that create more than 60 characters in the database.
+        // Password HASH
         $hPassword = password_hash($Password, PASSWORD_DEFAULT);
 
         // bind Param
@@ -25,6 +27,7 @@ class RoyalShorelineHotelModel {
         $stmt->bindParam(':surname', $Surname, PDO::PARAM_STR);
         $stmt->bindParam(':phone', $Phone, PDO::PARAM_STR);
         $stmt->bindParam(':email', $Email, PDO::PARAM_STR);
+        $stmt->bindParam(':accessrights', $AccessRights, PDO::PARAM_STR);
 
         // execute statement
         $result = $stmt->execute();
@@ -54,7 +57,8 @@ class RoyalShorelineHotelModel {
                         'reg_firstname'=>$retVal['Firstname'],
                         'reg_surname'=>$retVal['Surname'],
                         'reg_phone'=>$retVal['PhoneNumber'],
-                        'reg_email'=>$retVal['EmailAddress']);
+                        'reg_email'=>$retVal['EmailAddress'],
+                        'reg_accessrights'=>$retVal['accessRights']);
                 } else {
                     return false;
                 }
@@ -82,31 +86,42 @@ class RoyalShorelineHotelModel {
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-     function showRooms() {
-        $sql = "SELECT * FROM rooms";
+    function displayRegister() {
+        $sql = "SELECT * FROM register";
+        $stmt = $this->dbconn->prepare($sql);
+        $result = $stmt->execute();
 
         $rows = $stmt->fetchAll();
-
-        // execute statement
-        $result = $stmt->execute();
-        if($result === true) {
-            return true;
+        if(count($rows) > 0) {
+            return $rows;
         } else {
-            return false; // die
+            return false;
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     function showRooms() {
+         $sql = "SELECT * FROM rooms";
+         $stmt = $this->dbconn->prepare($sql);
+         $result = $stmt->execute();
+
+         $rows = $stmt->fetchAll();
+         if(count($rows) > 0) {
+             return $rows;
+         } else {
+             return false;
+         }
+     }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     function showBooking() {
         $sql = "SELECT * FROM bookings";
-
-        $rows = $stmt->fetchAll();
-        
-        // execute statement
+        $stmt = $this->dbconn->prepare($sql);
         $result = $stmt->execute();
-        if($result === true) {
-            return true;
+        $rows = $stmt->fetchAll();
+
+        if(count($rows) > 0) {
+            return $rows;
         } else {
-            return false; // die
+            return false;
         }
     }
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -116,9 +131,9 @@ class RoyalShorelineHotelModel {
 
         // bind Param
         $stmt = $this->dbconn->prepare($sql);
-        $stmt->bindParam(':roomtype', $RoomType, PDO::PARAM_STR);
-        $stmt->bindParam(':roomprice', $RoomPrice, PDO::PARAM_STR);
-        $stmt->bindParam(':roomdesc', $RoomDescription, PDO::PARAM_STR);
+        $stmt->bindParam(':roomtype', $RoomType);
+        $stmt->bindParam(':roomprice', $RoomPrice);
+        $stmt->bindParam(':roomdesc', $RoomDescription);
 
         // execute statement
         $result = $stmt->execute();

@@ -11,6 +11,7 @@ class RoyalShorelineSession {
     private $reg_surname;
     private $reg_phone;
     private $reg_email;
+    private $reg_accessrights;
     private $user_token;
 
     // Rate Limiting
@@ -41,14 +42,15 @@ class RoyalShorelineSession {
             'Surname'=>$res['reg_surname'],
             'PhoneNumber'=>$res['reg_phone'],
             'EmailAddress'=>$res['reg_email'],
+            'accessRights'=>$res['reg_accessrights'],
             'Hash'=>$this->user_token);
         }
     }
 
     // Register
-    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email) {
+    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights) {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->register($Username, $Password, $Firstname, $Surname, $Phone, $Email)) {
+            if($RoyalShorelineHotelDB->register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights)) {
                 return true;
             } else {
                 return false;
@@ -65,9 +67,22 @@ class RoyalShorelineSession {
         }
     }
 
+    // Display Register
+    public function displayRegister() {
+        global $RoyalShorelineHotelDB;
+        $result = $RoyalShorelineHotelDB->displayRegister();
+        if(count($result) > 0) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
     // Logout
     public function logout() {
         $reg_id = 0;
+        session_unset();
+        session_destroy();
         //$session->invalidate();
     }
 
@@ -82,23 +97,25 @@ class RoyalShorelineSession {
     }
 
     // Show Room
-    public function showRooms($RoomID, $RoomType, $RoomPrice, $RoomDescription) {
+    public function showRooms() {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->showRooms($RoomID, $RoomType, $RoomPrice, $RoomDescription)) {
-                return true;
-            } else {
-                return false;
-            }
+        $result = $RoyalShorelineHotelDB->showRooms();
+        if(count($result) > 0) {
+            return $result;
+        } else {
+            return false;
+        }
     }
 
     // Show Booking
-    public function showBooking($BookingID, $RegisterID, $RoomID, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate) {
+    public function showBooking() {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->showBooking($BookingID, $RegisterID, $RoomID, $RoomType, $BookingDate, $NumberOfAdult, $NumberOfChildren, $CheckInDate, $CheckOutDate)) {
-                return true;
-            } else {
-                return false;
-            }
+        $result = $RoyalShorelineHotelDB->showBooking();
+        if(count($result) > 0) {
+            return $result;
+        } else {
+            return false;
+        }
     }
 
     // Update Room

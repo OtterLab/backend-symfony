@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 10, 2021 at 10:54 PM
+-- Generation Time: May 31, 2021 at 01:15 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `test_table`
+-- Database: `royalshoreline`
 --
 
 -- --------------------------------------------------------
@@ -52,14 +52,23 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 DROP TABLE IF EXISTS `register`;
 CREATE TABLE IF NOT EXISTS `register` (
   `RegisterID` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `Username` varchar(50) NOT NULL,
+  `Username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Password` varchar(200) NOT NULL,
   `Firstname` varchar(50) NOT NULL,
   `Surname` varchar(50) NOT NULL,
   `PhoneNumber` varchar(50) NOT NULL,
   `EmailAddress` varchar(200) NOT NULL,
+  `accessRights` varchar(50) NOT NULL,
   PRIMARY KEY (`RegisterID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `register`
+--
+
+INSERT INTO `register` (`RegisterID`, `Username`, `Password`, `Firstname`, `Surname`, `PhoneNumber`, `EmailAddress`, `accessRights`) VALUES
+(2, 'hellow', '$2y$10$cxpDwcKAhPKW2WFU1TpiNehs27sRyskK3M7NlBc5iS8AKJ2FZlPx2', 'Mickey', 'Mouse', '7877979', 'mickym2@outlook.com', 'admin'),
+(6, 'SiaAir3829', '$2y$10$A4Xpi4o5r8p63YWFBXNGg.pt9p10HpNTXYD1WOm0Vk1Q.KTsg8eNe', 'Sammy', 'King', '23232323', 'sam39@outlook.com', 'customer');
 
 -- --------------------------------------------------------
 
@@ -89,7 +98,22 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `RoomPrice` decimal(10,2) NOT NULL,
   `RoomDescription` mediumtext NOT NULL,
   PRIMARY KEY (`RoomID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `rooms`
+--
+
+INSERT INTO `rooms` (`RoomID`, `RoomType`, `RoomPrice`, `RoomDescription`) VALUES
+(1, 'QueenBedroomOceanSilk', '12.50', 'undefined'),
+(2, 'KingBedroomPremierSuite', '13.00', 'This King Bedroom features a modern look'),
+(3, 'KingBedroomStandard', '12.50', 'This King Bedroom features a modern look'),
+(4, 'QueenBedroomSuite', '13.00', 'This Room is Luxury'),
+(5, 'King Bedroom Luxury Suite', '13.50', 'This King Bedroom Luxury Suite is the best room'),
+(6, 'QueenBedroomSuite', '13.00', 'gdgghhhhh'),
+(7, 'KingBedroomLuxurySuite', '13.00', 'This Room is Luxury'),
+(8, 'QueenBedroomOceanSilk', '12.50', 'This Queen Bedroom is Silky luxury'),
+(9, 'KingBedroomPremierSuite', '13.00', 'This Queen Bedroom is Silky luxury');
 
 --
 -- Constraints for dumped tables
