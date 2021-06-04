@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 31, 2021 at 01:15 AM
+-- Generation Time: Jun 04, 2021 at 03:39 AM
 -- Server version: 8.0.21
 -- PHP Version: 7.3.21
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `register` (
   `EmailAddress` varchar(200) NOT NULL,
   `accessRights` varchar(50) NOT NULL,
   PRIMARY KEY (`RegisterID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `register`
@@ -68,7 +68,8 @@ CREATE TABLE IF NOT EXISTS `register` (
 
 INSERT INTO `register` (`RegisterID`, `Username`, `Password`, `Firstname`, `Surname`, `PhoneNumber`, `EmailAddress`, `accessRights`) VALUES
 (2, 'hellow', '$2y$10$cxpDwcKAhPKW2WFU1TpiNehs27sRyskK3M7NlBc5iS8AKJ2FZlPx2', 'Mickey', 'Mouse', '7877979', 'mickym2@outlook.com', 'admin'),
-(6, 'SiaAir3829', '$2y$10$A4Xpi4o5r8p63YWFBXNGg.pt9p10HpNTXYD1WOm0Vk1Q.KTsg8eNe', 'Sammy', 'King', '23232323', 'sam39@outlook.com', 'customer');
+(6, 'SiaAir3829', '$2y$10$A4Xpi4o5r8p63YWFBXNGg.pt9p10HpNTXYD1WOm0Vk1Q.KTsg8eNe', 'Sammy', 'King', '23232323', 'sam39@outlook.com', 'customer'),
+(8, 'mick289', '$2y$10$KqCv5pUb1/.ZOa8EjFv2Qemv13WGoWpN3zddl4QbSsshcJZdcR41K', 'Mickey', 'Mouse', '2733626', 'mickym2@outlook.com', 'customer');
 
 -- --------------------------------------------------------
 
@@ -98,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `RoomPrice` decimal(10,2) NOT NULL,
   `RoomDescription` mediumtext NOT NULL,
   PRIMARY KEY (`RoomID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `rooms`
@@ -113,7 +114,7 @@ INSERT INTO `rooms` (`RoomID`, `RoomType`, `RoomPrice`, `RoomDescription`) VALUE
 (6, 'QueenBedroomSuite', '13.00', 'gdgghhhhh'),
 (7, 'KingBedroomLuxurySuite', '13.00', 'This Room is Luxury'),
 (8, 'QueenBedroomOceanSilk', '12.50', 'This Queen Bedroom is Silky luxury'),
-(9, 'KingBedroomPremierSuite', '13.00', 'This Queen Bedroom is Silky luxury');
+(12, 'King Bedroom Luxury Suite', '15.50', 'This King Bedroom features a modern look');
 
 --
 -- Constraints for dumped tables
