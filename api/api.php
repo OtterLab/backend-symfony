@@ -83,7 +83,9 @@ if(empty($request->query->all())) {
                     } else {
                         $response->setStatusCode(400);
                     }
-            } elseif($request->query->getAlnum('action') == 'logout') {
+                }
+            
+            elseif($request->query->getAlnum('action') == 'logout') {
                 $session->get('sessionOBJ')->logout();
                 $response->setStatusCode(200);
             }

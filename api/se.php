@@ -48,9 +48,9 @@ class RoyalShorelineSession {
     }
 
     // Register
-    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights) {
+    public function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $accessRights) {
         global $RoyalShorelineHotelDB;
-            if($RoyalShorelineHotelDB->register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights)) {
+            if($RoyalShorelineHotelDB->register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $accessRights)) {
                 return true;
             } else {
                 return false;
@@ -82,7 +82,6 @@ class RoyalShorelineSession {
     public function logout() {
         $reg_id = 0;
         session_unset();
-        session_destroy();
         //$session->invalidate();
     }
 

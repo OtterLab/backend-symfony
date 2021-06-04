@@ -9,12 +9,13 @@ class RoyalShorelineHotelModel {
     }
 
     //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $AccessRights) {
+    function register($Username, $Password, $Firstname, $Surname, $Phone, $Email, $accessRights) {
         
         $sql = "INSERT INTO register (Username, Password, Firstname, Surname, PhoneNumber, EmailAddress, accessRights)
         VALUES (:username, :password, :firstname, :surname, :phone, :email, :accessrights)";
 
-        // Creates a new Password HASH using one-way hashing algorithm. Password hash can change when it already exists in the database
+        // Creates a new Password HASH using one-way hashing algorithm. Password hash can change when it already exists in the database.
+        // When the password is hashed it cannot be decrypt because they are not reversible. 
         // Password DEFAULT uses bcrypt algorithm that create more than 60 characters in the database.
         // Password HASH
         $hPassword = password_hash($Password, PASSWORD_DEFAULT);
@@ -27,7 +28,7 @@ class RoyalShorelineHotelModel {
         $stmt->bindParam(':surname', $Surname, PDO::PARAM_STR);
         $stmt->bindParam(':phone', $Phone, PDO::PARAM_STR);
         $stmt->bindParam(':email', $Email, PDO::PARAM_STR);
-        $stmt->bindParam(':accessrights', $AccessRights, PDO::PARAM_STR);
+        $stmt->bindParam(':accessrights', $accessRights, PDO::PARAM_STR);
 
         // execute statement
         $result = $stmt->execute();
